@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 from dash.dependencies import Input, Output
 
+from chloropleth import map_data
+
 external_stylesheets = [
     {
         "href": "https://fonts.googleapis.com/css2?"
@@ -18,7 +20,9 @@ server = app.server
 app.title = "UBC Bot Garden"
 logo_image = 'assets/UBC-logo-2018-fullsig-white-rgb72.png'
 
-attributes = ['Species Count', 'Genus count']
+attributes = ['Species Count',
+              'Genus Count',
+              ]
 
 app.layout = html.Div(
     children=[
@@ -110,6 +114,7 @@ app.layout = html.Div(
     ]
 )
 
+
 @app.callback(
     [
         Output("chloropleth", "figure"),
@@ -119,6 +124,7 @@ app.layout = html.Div(
     ],
 )
 def plots(attribute):
+    return map_data(attribute)
 
 
 if __name__ == "__main__":
