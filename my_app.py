@@ -47,9 +47,10 @@ app.layout = html.Div(
                 html.H1(
                     children="UBC Botanical Garden", className="header-title"
                 ),
+                html.H1(children=' '),
                 html.P(
-                    children='''\n Otherworldly terrain. \n
-                    Here are some teasers that don't give away too much. \n\n
+                    children='''Otherworldly terrain.
+                    Here are some teasers that don't give away too much.
                     ''',
                     className="header-description",
                 ),
@@ -58,21 +59,6 @@ app.layout = html.Div(
         ),
         html.Div(
             children=[
-                html.Div(
-                    children=[
-                        html.Div(children="Attribute", className="menu-title"),
-                        dcc.Dropdown(
-                            id="attribute-filter",
-                            options=[
-                                {"label": attribute, "value": attribute}
-                                for attribute in attributes
-                            ],
-                            value="Species Count",
-                            clearable=True,
-                            className="dropdown",
-                        ),
-                    ]
-                ),
                 html.Div(
                     children=[
                         html.Div(children="Garden", className="menu-title"),
@@ -96,11 +82,29 @@ app.layout = html.Div(
         html.Div(
             children=[
                 html.Div(
-                    children=dcc.Graph(
-                        id="chloropleth", config={"displayModeBar": True},
-                    ),
+                    children=[
+                        html.Div(
+                            children=[
+                                html.Div(children="Attribute", className="menu-title"),
+                                dcc.Dropdown(
+                                    id="attribute-filter",
+                                    options=[
+                                        {"label": attribute, "value": attribute}
+                                        for attribute in attributes
+                                    ],
+                                    value="Species Count",
+                                    clearable=True,
+                                    className="dropdown",
+                                ),
+                            ]
+                        ),
+                        dcc.Graph(
+                            id="chloropleth", config={"displayModeBar": True},
+                        ),
+                    ],
                     className="card",
                 ),
+
             ],
             className="wrapper",
         ),
