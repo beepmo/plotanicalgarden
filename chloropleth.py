@@ -24,7 +24,7 @@ def map_data(attribute, filtered_df):
         # featureidkey = 'properties.<location column in csv, which should be same as property key in geojson>'
         featureidkey='properties.bed',
 
-        hover_data=['Species Count', 'Genus Count'],
+        # hover_data=['Species Count', 'Genus Count'],
         hover_name='Bed',
 
         height=500,

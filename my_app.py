@@ -111,7 +111,6 @@ app.layout = html.Div(
                                 ],
                                 className="card",
                             ),
-
                         ],
                         className="wrapper",
                     ),
@@ -164,7 +163,6 @@ app.layout = html.Div(
                                 ],
                                 className="card",
                             ),
-
                         ],
                         className="wrapper",
                     ),
@@ -215,12 +213,13 @@ def big_number(gardens):
     return [str(species_cnt) + ' |-------| ' + str(genus_cnt)]
 
 @app.callback(
-    [Output("find family", "children")],
+    [Output("find family", "figure")],
     [Input("genus-filter", "value")]
 )
 def find_family(genus):
     genus_df = parse_genus(genus)
-    return [map_data(genus + ' Count', genus_df)]
+    print(genus_df.head())
+    return map_data(genus + ' Count', genus_df)
 
 
 if __name__ == "__main__":
