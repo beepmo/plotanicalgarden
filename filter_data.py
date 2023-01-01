@@ -14,7 +14,7 @@ lcs = 'Alpine Cactus and Succulent'  # include 'LTC'
 leu = 'Alpine Europe'
 
 
-def regex_builder(array_of_gardens):
+def bed_pattern(array_of_gardens):
     regex = '^'
 
     if _4c in array_of_gardens:
@@ -41,3 +41,9 @@ def regex_builder(array_of_gardens):
     regex += '$'
     return regex
 
+
+def filter_df(bed_pattern):
+    filtered = df.loc(re.match(bed_pattern, df['Bed']))
+    return filtered
+
+filtered = filter_df(bed_pattern())

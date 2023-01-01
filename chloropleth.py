@@ -5,7 +5,7 @@ import json
 with open('map.geojson') as raw_map:
     marauders = json.load(raw_map)
 
-from parse_data import df
+from filter_data import filtered
 
 
 # REQUIRES: attribute is 'Species Count' or 'Genus count'
