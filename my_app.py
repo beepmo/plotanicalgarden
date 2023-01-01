@@ -57,11 +57,21 @@ app.layout = html.Div(
             ],
             className="header",
         ),
+        html.Div([
+            dcc.Tabs([
+                dcc.Tab(label='Throwing numbers', children=[
+
+                ]),
+                dcc.Tab(label='Spotlight', children=[
+
+                ])
+            ])
+        ]),
         html.Div(
             children=[
                 html.Div(
                     children=[
-                        html.Div(children="Garden", className="menu-title"),
+                        html.Div(children="Browse gardens", className="menu-title"),
                         dcc.Dropdown(
                             id="beds-filter",
                             options=[
@@ -83,21 +93,17 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     children=[
-                        html.Div(
-                            children=[
-                                html.Div(children="Attribute", className="menu-title"),
-                                dcc.Dropdown(
-                                    id="attribute-filter",
-                                    options=[
-                                        {"label": attribute, "value": attribute}
-                                        for attribute in attributes
-                                    ],
-                                    value="Species Count",
-                                    clearable=True,
-                                    className="dropdown",
-                                ),
-                            ]
+
+                        dcc.Dropdown(
+                            id="attribute-filter",
+                            options=[
+                                {"label": attribute, "value": attribute}
+                                for attribute in attributes
+                            ],
+                            value="Species Count",
+                            className="dropdown",
                         ),
+
                         dcc.Graph(
                             id="chloropleth", config={"displayModeBar": True},
                         ),
