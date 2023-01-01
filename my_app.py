@@ -45,12 +45,12 @@ app.layout = html.Div(
                 html.Img(src=logo_image, className="header-logo",
                          style={'textAlign': 'center'}),
                 html.H1(
-                    children="Avocado Analytics", className="header-title"
+                    children="UBC Botanical Garden", className="header-title"
                 ),
                 html.P(
-                    children="Analyze the behavior of avocado prices"
-                             " and the number of avocados sold in the US"
-                             " between 2015 and 2018\n\n\n\n",
+                    children='''\n Otherworldly terrain. \n
+                    Here are some teasers that don't give away too much. \n\n
+                    ''',
                     className="header-description",
                 ),
             ],
@@ -90,21 +90,6 @@ app.layout = html.Div(
                         ),
                     ],
                 ),
-                # html.Div(
-                #     children=[
-                #         html.Div(
-                #             children="Date Range",
-                #             className="menu-title"
-                #         ),
-                #         dcc.DatePickerRange(
-                #             id="date-range",
-                #             min_date_allowed=data.Date.min().date(),
-                #             max_date_allowed=data.Date.max().date(),
-                #             start_date=data.Date.min().date(),
-                #             end_date=data.Date.max().date(),
-                #         ),
-                #     ]
-                # ),
             ],
             className="menu",
         ),
@@ -116,14 +101,23 @@ app.layout = html.Div(
                     ),
                     className="card",
                 ),
-                # html.Div(
-                #     children=dcc.Graph(
-                #         id="volume-chart", config={"displayModeBar": False},
-                #     ),
-                #     className="card",
-                # ),
             ],
             className="wrapper",
+        ),
+        html.Div(
+            children=[
+                html.P(children="🥑", className="header-emoji"),
+                html.H1(
+                    id="big number", className="header-title"
+                ),
+                html.H1(children=' '),
+                html.P(
+                    children='''\n\n\n SPECIES  ||  GENUS \n\n
+                    ''',
+                    className="header-description",
+                ),
+            ],
+            className="header",
         ),
     ]
 )
@@ -136,12 +130,37 @@ app.layout = html.Div(
     [
         Input(component_id="attribute-filter", component_property="value"),
         Input(component_id="beds-filter", component_property="value"),
-
     ],
 )
 def plots(attribute, gardens):
-    filtered_df = filter_df(gardens)
-    return map_data(attribute,filtered_df)
+    filtered_df = filter_cache(gardens)
+    return map_data(attribute, filtered_df)
+
+
+df_cache = {}
+
+
+def filter_cache(gardens):
+    filtered = df_cache.get(tuple(gardens))
+    if filtered is None:
+        filtered = filter_df(gardens)
+        df_cache.update({tuple(gardens): filtered})
+    return filtered
+
+
+@app.callback(
+    [
+        Output("big number", "children")
+    ],
+    [
+        Input(component_id="beds-filter", component_property="value"),
+    ]
+)
+def big_number(gardens):
+    filtered_df = filter_cache(gardens)
+    species_cnt = filtered_df['Species Count'].sum()
+    genus_cnt = filtered_df['Genus Count'].sum()
+    return [str(species_cnt) + ' |-------| ' + str(genus_cnt)]
 
 
 if __name__ == "__main__":
