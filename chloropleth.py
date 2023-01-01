@@ -26,6 +26,8 @@ def map_data(attribute,filtered_df):
 
         hover_data=['Species Count', 'Genus Count'],
         hover_name='Bed',
+
+        height=500,
     )
 
     # if fitbounds is not set, the entire globe is shown
