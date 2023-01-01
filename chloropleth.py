@@ -45,5 +45,4 @@ def map_data(attribute, filtered_df):
         )
     )
 
-    return [fig]
-    # return type <list> because callback expects list
+    return fig

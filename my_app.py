@@ -166,6 +166,20 @@ app.layout = html.Div(
                         ],
                         className="wrapper",
                     ),
+                    html.Div(
+                        children=[
+                            html.P(children="🥑", className="header-emoji"),
+                            html.H1(
+                                id="family number", className="header-title"
+                            ),
+                            html.H1(children=' '),
+                            html.P(
+                                id="familyname",
+                                className="header-description",
+                            ),
+                        ],
+                        className="header",
+                    ),
                 ])
             ])
         ]),
@@ -184,7 +198,8 @@ app.layout = html.Div(
 )
 def plots(attribute, gardens):
     filtered_df = filter_cache(gardens)
-    return map_data(attribute, filtered_df)
+    return [map_data(attribute, filtered_df)]
+    # this chloropleth expects list. the other doesn't
 
 
 df_cache = {}
@@ -212,14 +227,34 @@ def big_number(gardens):
     genus_cnt = filtered_df['Genus Count'].sum()
     return [str(species_cnt) + ' |-------| ' + str(genus_cnt)]
 
+
 @app.callback(
-    [Output("find family", "figure")],
+    [
+        Output("find family", "figure"),
+        Output("family number", "children"),
+        Output("familyname", "children")
+    ],
     [Input("genus-filter", "value")]
 )
 def find_family(genus):
-    genus_df = parse_genus(genus)
-    print(genus_df.head())
-    return map_data(genus + ' Count', genus_df)
+    axis = genus + ' Count'
+
+    genus_df = genus_cache(genus)
+
+    item_cnt = genus_df[axis].sum()
+
+    return map_data(axis, genus_df), item_cnt, axis
+
+
+gcache = {}
+
+
+def genus_cache(genus):
+    filtered = gcache.get(genus)
+    if filtered is None:
+        genus_df = parse_genus(genus)
+        gcache.update({genus: filtered})
+    return genus_df
 
 
 if __name__ == "__main__":
