@@ -60,75 +60,74 @@ app.layout = html.Div(
         html.Div([
             dcc.Tabs([
                 dcc.Tab(label='Throwing numbers', children=[
+                    html.Div(
+                        children=[
+                            html.Div(
+                                children=[
+                                    html.Div(children="Browse gardens", className="menu-title"),
+                                    dcc.Dropdown(
+                                        id="beds-filter",
+                                        options=[
+                                            {"label": garden, "value": garden}
+                                            for garden in gardens
+                                        ],
+                                        value="All I mapped",
+                                        clearable=True,
+                                        searchable=True,
+                                        multi=True,
+                                        className="dropdown",
+                                    ),
+                                ],
+                            ),
+                        ],
+                        className="menu",
+                    ),
+                    html.Div(
+                        children=[
+                            html.Div(
+                                children=[
 
+                                    dcc.Dropdown(
+                                        id="attribute-filter",
+                                        options=[
+                                            {"label": attribute, "value": attribute}
+                                            for attribute in attributes
+                                        ],
+                                        value="Species Count",
+                                        className="dropdown",
+                                    ),
+
+                                    dcc.Graph(
+                                        id="chloropleth", config={"displayModeBar": True},
+                                    ),
+                                ],
+                                className="card",
+                            ),
+
+                        ],
+                        className="wrapper",
+                    ),
+                    html.Div(
+                        children=[
+                            html.P(children="🥑", className="header-emoji"),
+                            html.H1(
+                                id="big number", className="header-title"
+                            ),
+                            html.H1(children=' '),
+                            html.P(
+                                children='''\n\n\n SPECIES  ||  GENUS \n\n
+                                ''',
+                                className="header-description",
+                            ),
+                        ],
+                        className="header",
+                    ),
                 ]),
                 dcc.Tab(label='Spotlight', children=[
 
                 ])
             ])
         ]),
-        html.Div(
-            children=[
-                html.Div(
-                    children=[
-                        html.Div(children="Browse gardens", className="menu-title"),
-                        dcc.Dropdown(
-                            id="beds-filter",
-                            options=[
-                                {"label": garden, "value": garden}
-                                for garden in gardens
-                            ],
-                            value="All I mapped",
-                            clearable=True,
-                            searchable=True,
-                            multi=True,
-                            className="dropdown",
-                        ),
-                    ],
-                ),
-            ],
-            className="menu",
-        ),
-        html.Div(
-            children=[
-                html.Div(
-                    children=[
-
-                        dcc.Dropdown(
-                            id="attribute-filter",
-                            options=[
-                                {"label": attribute, "value": attribute}
-                                for attribute in attributes
-                            ],
-                            value="Species Count",
-                            className="dropdown",
-                        ),
-
-                        dcc.Graph(
-                            id="chloropleth", config={"displayModeBar": True},
-                        ),
-                    ],
-                    className="card",
-                ),
-
-            ],
-            className="wrapper",
-        ),
-        html.Div(
-            children=[
-                html.P(children="🥑", className="header-emoji"),
-                html.H1(
-                    id="big number", className="header-title"
-                ),
-                html.H1(children=' '),
-                html.P(
-                    children='''\n\n\n SPECIES  ||  GENUS \n\n
-                    ''',
-                    className="header-description",
-                ),
-            ],
-            className="header",
-        ),
     ]
 )
 
