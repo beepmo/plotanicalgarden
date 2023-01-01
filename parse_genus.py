@@ -34,3 +34,8 @@ def parse_genus(genus):
                      }
 
     genus_df = pd.DataFrame.from_dict(dict_of_lists)
+
+    return genus_df
+
+
+# print(parse_genus('Rhododendron').head())

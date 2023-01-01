@@ -7,6 +7,7 @@ from dash.dependencies import Input, Output
 
 from chloropleth import map_data
 from filter_data import filter_bed
+from parse_genus import parse_genus
 
 external_stylesheets = [
     {
@@ -152,6 +153,21 @@ app.layout = html.Div(
                         ],
                         className="menu",
                     ),
+                    html.Div(
+                        children=[
+                            html.Div(
+                                children=[
+
+                                    dcc.Graph(
+                                        id="find family", config={"displayModeBar": True},
+                                    ),
+                                ],
+                                className="card",
+                            ),
+
+                        ],
+                        className="wrapper",
+                    ),
                 ])
             ])
         ]),
@@ -197,6 +213,14 @@ def big_number(gardens):
     species_cnt = filtered_df['Species Count'].sum()
     genus_cnt = filtered_df['Genus Count'].sum()
     return [str(species_cnt) + ' |-------| ' + str(genus_cnt)]
+
+@app.callback(
+    [Output("find family", "children")],
+    [Input("genus-filter", "value")]
+)
+def find_family(genus):
+    genus_df = parse_genus(genus)
+    return [map_data(genus + ' Count', genus_df)]
 
 
 if __name__ == "__main__":
