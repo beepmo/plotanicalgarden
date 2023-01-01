@@ -23,6 +23,17 @@ logo_image = 'assets/UBC-logo-2018-fullsig-white-rgb72.png'
 attributes = ['Species Count',
               'Genus Count',
               ]
+gardens = ['All I mapped',
+           'Carolinian Forest',
+           'Contemporary Garden',
+           'Winter Garden',
+           'Alpine Australasia',
+           'Alpine Asia',
+           'Alpine South America',
+           'Alpine North America',
+           'Alpine Cactus and Succulent',
+           'Alpine Europe'
+           ]
 
 app.layout = html.Div(
     children=[
@@ -60,22 +71,23 @@ app.layout = html.Div(
                         ),
                     ]
                 ),
-                # html.Div(
-                #     children=[
-                #         html.Div(children="Type", className="menu-title"),
-                #         dcc.Dropdown(
-                #             id="type-filter",
-                #             options=[
-                #                 {"label": avocado_type, "value": avocado_type}
-                #                 for avocado_type in data.type.unique()
-                #             ],
-                #             value="organic",
-                #             clearable=False,
-                #             searchable=False,
-                #             className="dropdown",
-                #         ),
-                #     ],
-                # ),
+                html.Div(
+                    children=[
+                        html.Div(children="Garden", className="menu-title"),
+                        dcc.Dropdown(
+                            id="beds-filter",
+                            options=[
+                                {"label": garden, "value": garden}
+                                for garden in gardens
+                            ],
+                            value="All I mapped",
+                            clearable=True,
+                            searchable=True,
+                            multi=True,
+                            className="dropdown",
+                        ),
+                    ],
+                ),
                 # html.Div(
                 #     children=[
                 #         html.Div(
