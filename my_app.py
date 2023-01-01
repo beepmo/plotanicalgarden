@@ -6,7 +6,7 @@ import numpy as np
 from dash.dependencies import Input, Output
 
 from chloropleth import map_data
-from filter_data import filter_df
+from filter_data import filter_bed
 
 external_stylesheets = [
     {
@@ -24,7 +24,7 @@ logo_image = 'assets/UBC-logo-2018-fullsig-white-rgb72.png'
 attributes = ['Species Count',
               'Genus Count',
               ]
-gardens = ['All I mapped',
+gardens = ['All that beep mapped',
            'Carolinian Forest',
            # 'Contemporary Garden',
            'Winter Garden',
@@ -36,6 +36,13 @@ gardens = ['All I mapped',
            'Alpine Europe'
            ]
 # todo draw more gardens!
+genus = ['Acer',
+         'Magnolia',
+         'Rhododendron',
+         'Cytisus',
+         'Lavendula',
+         'Toxicodendron'
+         ]
 
 app.layout = html.Div(
     children=[
@@ -71,7 +78,7 @@ app.layout = html.Div(
                                             {"label": garden, "value": garden}
                                             for garden in gardens
                                         ],
-                                        value="All I mapped",
+                                        value="All that beep mapped",
                                         clearable=True,
                                         searchable=True,
                                         multi=True,
@@ -124,7 +131,27 @@ app.layout = html.Div(
                     ),
                 ]),
                 dcc.Tab(label='Spotlight', children=[
-
+                    html.Div(
+                        children=[
+                            html.Div(
+                                children=[
+                                    html.Div(children="Search Genera", className="menu-title"),
+                                    dcc.Dropdown(
+                                        id="genus-filter",
+                                        options=[
+                                            {"label": g, "value": g}
+                                            for g in genus
+                                        ],
+                                        value="Cytisus",
+                                        clearable=True,
+                                        searchable=True,
+                                        className="dropdown",
+                                    ),
+                                ],
+                            ),
+                        ],
+                        className="menu",
+                    ),
                 ])
             ])
         ]),
@@ -152,7 +179,7 @@ df_cache = {}
 def filter_cache(gardens):
     filtered = df_cache.get(tuple(gardens))
     if filtered is None:
-        filtered = filter_df(gardens)
+        filtered = filter_bed(gardens)
         df_cache.update({tuple(gardens): filtered})
     return filtered
 

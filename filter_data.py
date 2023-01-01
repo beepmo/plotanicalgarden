@@ -1,7 +1,7 @@
 import re
 from parse_data import df
 
-all = 'All I mapped'
+all = 'All that beep mapped'
 _4c = 'Carolinian Forest'
 _1c = 'Contemporary Garden'
 _1p = 'Winter Garden'
@@ -42,7 +42,7 @@ def build_pattern(array_of_gardens):
     return regex
 
 
-def filter_df(array_of_gardens):
+def filter_bed(array_of_gardens):
     if all in array_of_gardens:
         return df
     bed_pattern = build_pattern(array_of_gardens)

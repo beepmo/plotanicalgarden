@@ -7,7 +7,7 @@ with open('map.geojson') as raw_map:
 
 
 # REQUIRES: attribute is 'Species Count' or 'Genus count'
-def map_data(attribute,filtered_df):
+def map_data(attribute, filtered_df):
     fig = px.choropleth(
         # pandas dataframe
         filtered_df,
