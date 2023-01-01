@@ -6,6 +6,7 @@ import numpy as np
 from dash.dependencies import Input, Output
 
 from chloropleth import map_data
+from filter_data import filter_df
 
 external_stylesheets = [
     {
@@ -25,7 +26,7 @@ attributes = ['Species Count',
               ]
 gardens = ['All I mapped',
            'Carolinian Forest',
-           'Contemporary Garden',
+           # 'Contemporary Garden',
            'Winter Garden',
            'Alpine Australasia',
            'Alpine Asia',
@@ -34,6 +35,7 @@ gardens = ['All I mapped',
            'Alpine Cactus and Succulent',
            'Alpine Europe'
            ]
+# todo draw more gardens!
 
 app.layout = html.Div(
     children=[
@@ -133,10 +135,13 @@ app.layout = html.Div(
     ],
     [
         Input(component_id="attribute-filter", component_property="value"),
+        Input(component_id="beds-filter", component_property="value"),
+
     ],
 )
-def plots(attribute):
-    return map_data(attribute)
+def plots(attribute, gardens):
+    filtered_df = filter_df(gardens)
+    return map_data(attribute,filtered_df)
 
 
 if __name__ == "__main__":

@@ -5,14 +5,12 @@ import json
 with open('map.geojson') as raw_map:
     marauders = json.load(raw_map)
 
-from filter_data import filtered
-
 
 # REQUIRES: attribute is 'Species Count' or 'Genus count'
-def map_data(attribute):
+def map_data(attribute,filtered_df):
     fig = px.choropleth(
         # pandas dataframe
-        df,
+        filtered_df,
 
         # specify column for regions
         locations='Bed',
