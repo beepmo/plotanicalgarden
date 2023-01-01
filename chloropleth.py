@@ -25,10 +25,25 @@ def map_data(attribute):
 
         # featureidkey = 'properties.<location column in csv, which should be same as property key in geojson>'
         featureidkey='properties.bed',
+
+        hover_data=['Species Count', 'Genus Count'],
+        hover_name='Bed',
     )
 
     # if fitbounds is not set, the entire globe is shown
     fig.update_geos(fitbounds="geojson", visible=True)
+
+    # smooth transition when updated
+    fig.update_layout(transition_duration=500)
+
+    # pretty hover
+    fig.update_layout(
+        hoverlabel=dict(
+            bgcolor="white",
+            font_size=16,
+            font_family="Rockwell"
+        )
+    )
 
     return [fig]
     # return type <list> because callback expects list
