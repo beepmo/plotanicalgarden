@@ -1,5 +1,7 @@
 import re
-from parse_data import df
+import time
+
+from parse_data import make_df
 
 all = 'All that beep mapped'
 _4c = 'Carolinian Forest'
@@ -43,9 +45,18 @@ def build_pattern(array_of_gardens):
 
 
 def filter_bed(array_of_gardens):
+
     if all in array_of_gardens:
         return df
+
+    filter_bed_start = time.time()
+
     bed_pattern = build_pattern(array_of_gardens)
     filtered = df[df.Bed.str.match(bed_pattern)]
+
+    filter_bed_stop = time.time()
+
+    print(f'Time taken to apply filter is {(filter_bed_stop - filter_bed_start)}. \n Gardens selected: {array_of_gardens}')
+
     return filtered
 

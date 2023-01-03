@@ -21,7 +21,7 @@ def map_data(attribute, filtered_df):
         # loaded geojson
         geojson=marauders,
 
-        # featureidkey = 'properties.<location column in csv, which should be same as property key in geojson>'
+        # featureidkey = 'properties.<location column in csv_pddf, which should be same as property key in geojson>'
         featureidkey='properties.bed',
 
         # hover_data=['Species Count', 'Genus Count'],

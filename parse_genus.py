@@ -1,14 +1,14 @@
 import pandas as pd
 
-from request_csv import df
-
-# list of bed
-beds = []
-item_cnts = []
+from request_csv import csv_pddf
 
 
 def parse_genus(genus):
-    for index, row in df.iterrows():  # iterate over all rows of data
+    # list of bed
+    beds = []
+    item_cnts = []
+
+    for index, row in csv_pddf.iterrows():  # iterate over all rows of data
         bed = row['Bed']
         cur_genus = row['Taxon'].partition(' ')[0]
 

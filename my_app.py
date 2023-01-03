@@ -1,3 +1,5 @@
+import time
+
 import dash
 from dash import dcc
 from dash import html
@@ -198,6 +200,7 @@ app.layout = html.Div(
 )
 def plots(attribute, gardens):
     filtered_df = filter_cache(gardens)
+
     return [map_data(attribute, filtered_df)]
     # this chloropleth expects list. the other doesn't
 
