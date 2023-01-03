@@ -67,14 +67,3 @@ def make_df():
     print(f'Time taken to parse data into df is {(parse_data_end - parse_data_start)}.')
 
     return df
-
-
-tracker = Mock(side_effect=make_df())
-tracker()
-
-df = 0
-
-if not tracker.called:
-    df = make_df()
-
-print(f'Tracker call count = {tracker.call_count}')

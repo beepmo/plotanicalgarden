@@ -1,7 +1,7 @@
 import re
 import time
 
-from parse_data import df
+from my_app import df
 
 all = 'All that beep mapped'
 _4c = 'Carolinian Forest'
