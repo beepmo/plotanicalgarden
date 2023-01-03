@@ -1,6 +1,7 @@
 import time
 
 import pandas as pd
+from unittest.mock import Mock
 
 from request_csv import csv_pddf
 
@@ -68,5 +69,12 @@ def make_df():
     return df
 
 
-if df is None:
+tracker = Mock(side_effect=make_df())
+tracker()
+
+df = 0
+
+if not tracker.called:
     df = make_df()
+
+print(f'Tracker call count = {tracker.call_count}')
