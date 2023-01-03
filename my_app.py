@@ -7,9 +7,6 @@ import pandas as pd
 import numpy as np
 from dash.dependencies import Input, Output
 
-from parse_data import make_df
-df = make_df()
-
 from chloropleth import map_data
 from filter_data import filter_bed
 from parse_genus import parse_genus

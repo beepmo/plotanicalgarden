@@ -5,7 +5,7 @@ from unittest.mock import Mock
 
 from request_csv import csv_pddf
 
-
+print(csv_pddf.head())
 def make_df():
     parse_data_start = time.time()
 
@@ -64,6 +64,8 @@ def make_df():
 
     parse_data_end = time.time()
 
-    print(f'Time taken to parse data into df is {(parse_data_end - parse_data_start)}.')
+    print(f'Time taken to parse csv into df is {(parse_data_end - parse_data_start)}.')
 
     return df
+
+df = make_df()
