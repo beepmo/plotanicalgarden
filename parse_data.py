@@ -5,7 +5,7 @@ from unittest.mock import Mock
 
 from request_csv import csv_pddf
 
-print(csv_pddf.head())
+
 def make_df():
     parse_data_start = time.time()
 
@@ -59,13 +59,29 @@ def make_df():
                      'Genus Count': genus_cnts
                      }
 
+    # memoize the columns in the parsed data
+    attributes = set(dict_of_lists.keys())
+    attributes.remove('Bed')
+
     # do not replace raw data csv_pddf
     df = pd.DataFrame.from_dict(dict_of_lists)
 
     parse_data_end = time.time()
 
-    print(f'Time taken to parse csv into df is {(parse_data_end - parse_data_start)}.')
+    print(f'Time taken to parse csv df into plottable df is {(parse_data_end - parse_data_start)}.')
 
-    return df
+    return df, attributes
 
-df = make_df()
+
+# make sure make_df is run only once. same with mock
+# I see that it gets run twice anyways: before building flask app and after
+df_shelf = ()
+
+if len(df_shelf) == 0:
+    df_shelf = make_df()
+    df = df_shelf[0]
+    attributes = df_shelf[1]
+else:
+    assert len(df_shelf) == 2
+    df = df_shelf[0]
+    attributes = df_shelf[1]

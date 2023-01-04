@@ -1,5 +1,3 @@
-import time
-
 import dash
 from dash import dcc
 from dash import html
@@ -7,6 +5,7 @@ import pandas as pd
 import numpy as np
 from dash.dependencies import Input, Output
 
+# my functions
 from chloropleth import map_data
 from filter_data import filter_bed
 from parse_genus import parse_genus
@@ -24,21 +23,11 @@ server = app.server
 app.title = "UBC Bot Garden"
 logo_image = 'assets/UBC-logo-2018-fullsig-white-rgb72.png'
 
-attributes = ['Species Count',
-              'Genus Count',
-              ]
-gardens = ['All that beep mapped',
-           'Carolinian Forest',
-           # 'Contemporary Garden',
-           'Winter Garden',
-           'Alpine Australasia',
-           'Alpine Asia',
-           'Alpine South America',
-           'Alpine North America',
-           'Alpine Cactus and Succulent',
-           'Alpine Europe'
-           ]
-# todo draw more gardens!
+
+from parse_data import attributes  # set: "throwing" tab dropdown options
+
+from filter_data import gardens  # plotted regions in geojson
+
 genus = ['Acer',
          'Magnolia',
          'Rhododendron',

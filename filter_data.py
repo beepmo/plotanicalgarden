@@ -3,11 +3,9 @@ import time
 
 from parse_data import df
 
-print(df.head())
-
 all = 'All that beep mapped'
 _4c = 'Carolinian Forest'
-_1c = 'Contemporary Garden'
+# _1c = 'Contemporary Garden'
 _1p = 'Winter Garden'
 laa = 'Alpine Australasia'
 laf = 'Alpine Africa'
@@ -17,14 +15,16 @@ lna = 'Alpine North America'
 lcs = 'Alpine Cactus and Succulent'  # include 'LTC'
 leu = 'Alpine Europe'
 
+gardens = [all, _4c, laa, laf, las, lsa, lna, lcs, leu]
+
 
 def build_pattern(array_of_gardens):
     regex = '^'
 
     if _4c in array_of_gardens:
         regex += '4C\d\d|'
-    if _1c in array_of_gardens:
-        regex += '1C0\d|'
+    # if _1c in array_of_gardens:
+    #     regex += '1C0\d|'
     if _1p in array_of_gardens:
         regex += '1P0\d|'
     if laa in array_of_gardens:
@@ -47,7 +47,6 @@ def build_pattern(array_of_gardens):
 
 
 def filter_bed(array_of_gardens):
-
     if all in array_of_gardens:
         return df
 
@@ -58,7 +57,7 @@ def filter_bed(array_of_gardens):
 
     filter_bed_stop = time.time()
 
-    print(f'Time taken to apply filter is {(filter_bed_stop - filter_bed_start)}. \n Gardens selected: {array_of_gardens}')
+    print(
+        f'Time taken to apply filter is {(filter_bed_stop - filter_bed_start)}. \n Gardens selected: {array_of_gardens}')
 
     return filtered
-
