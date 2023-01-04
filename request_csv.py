@@ -23,21 +23,18 @@ url = 'https://raw.githubusercontent.com/beepmo/gardens/main/'\
 result = github_session.get(url)
 
 status = result.status_code
-# assert status != 404
-# >>> AssertionError
+assert status != 404
 
 download = result.content
 
 # Reading the downloaded content and making it a pandas dataframe
 
 start_csv = time.time()
-# csv_pddf = pd.read_csv(io.StringIO(download.decode('utf-8')),
-csv_pddf = pd.read_csv('dashboard_food.csv',
+csv_pddf = pd.read_csv(io.StringIO(download.decode('utf-8')),
                        header=0,
                        names=['Bed', 'Label', 'Geo?', 'Status', 'Status Date', 'Taxon'],
                        parse_dates=['Status Date']
                        )
-# FIXME: 404 error. I had to cheat to test other features
 end_csv = time.time()
 
 
