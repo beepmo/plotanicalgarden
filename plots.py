@@ -1,4 +1,5 @@
 import plotly.express as px
+import plotly.graph_objects as go
 
 import json
 
@@ -7,7 +8,7 @@ with open('map.geojson') as raw_map:
 
 
 # REQUIRES: attribute is 'Species Count' or 'Genus count'
-def map_data(attribute, filtered_df):
+def chloropleth(attribute, filtered_df):
     fig = px.choropleth(
         # pandas dataframe
         filtered_df,
@@ -44,5 +45,18 @@ def map_data(attribute, filtered_df):
             font_family="Rockwell"
         )
     )
+
+    return fig
+
+
+def bar(attribute, filtered_df):
+    fig = go.Figure(px.bar(filtered_df,
+                           x='Bed',
+                           y=attribute,
+                           ))
+
+    fig.update_layout(xaxis={'categoryorder': 'total descending'})
+    fig.update_xaxes(rangeslider_visible=True)
+    fig.update_yaxes(fixedrange=False)
 
     return fig

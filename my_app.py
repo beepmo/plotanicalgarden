@@ -6,7 +6,8 @@ import numpy as np
 from dash.dependencies import Input, Output
 
 # my functions
-from chloropleth import map_data
+from plots import chloropleth
+from plots import bar
 from filter_data import filter_bed
 from parse_genus import parse_genus
 
@@ -190,7 +191,7 @@ app.layout = html.Div(
 def plots(attribute, gardens):
     filtered_df = filter_cache(gardens)
 
-    return [map_data(attribute, filtered_df)]
+    return [chloropleth(attribute, filtered_df)]
     # this chloropleth expects list. the other doesn't
 
 
@@ -235,7 +236,7 @@ def find_family(genus):
 
     item_cnt = genus_df[axis].sum()
 
-    return map_data(axis, genus_df), item_cnt, axis
+    return chloropleth(axis, genus_df), item_cnt, axis
 
 
 gcache = {}

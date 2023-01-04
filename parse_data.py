@@ -19,6 +19,9 @@ def make_df():
         bed = row['Bed']
         species = row['Taxon']
 
+        if bed == 'HUBC':
+            continue
+
         try:
             # bed is in beds
             bed_location = beds.index(bed)
@@ -32,6 +35,8 @@ def make_df():
             beds.append(bed)
             # add species as list
             species_in_bed.append([species])
+
+    assert 'HUBC' not in beds
 
     # species count by bed, in same order as beds
     species_cnts = []
