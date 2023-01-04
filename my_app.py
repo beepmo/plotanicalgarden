@@ -24,11 +24,13 @@ server = app.server
 app.title = "UBC Bot Garden"
 logo_image = 'assets/UBC-logo-2018-fullsig-white-rgb72.png'
 
+# set of "throwing" tab dropdown options
+from parse_data import attributes
 
-from parse_data import attributes  # set: "throwing" tab dropdown options
+# plotted regions in geojson
+from filter_data import gardens
 
-from filter_data import gardens  # plotted regions in geojson
-
+# list of "spotlight" tab options
 genus = ['Acer',
          'Magnolia',
          'Rhododendron',
@@ -37,9 +39,7 @@ genus = ['Acer',
          'Toxicodendron'
          ]
 
-app.layout = html.Div(
-    children=[
-        html.Div(
+header = html.Div(
             children=[
                 # html.P(children="🥑", className="header-emoji"),
                 html.Img(src=logo_image, className="header-logo",
@@ -56,7 +56,11 @@ app.layout = html.Div(
                 ),
             ],
             className="header",
-        ),
+        )
+
+app.layout = html.Div(
+    children=[
+        header,
         html.Div([
             dcc.Tabs([
                 dcc.Tab(label='Throwing numbers', children=[
