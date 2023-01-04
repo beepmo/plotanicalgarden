@@ -29,6 +29,9 @@ def chloropleth(attribute, filtered_df):
         hover_name='Bed',
 
         height=500,
+
+        color_continuous_scale='blues',
+
     )
 
     # if fitbounds is not set, the entire globe is shown
