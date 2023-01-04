@@ -98,6 +98,7 @@ app.layout = html.Div(
                             html.Div(
                                 children=[
 
+                                    # attribute selector
                                     dcc.Dropdown(
                                         id="attribute-filter",
                                         options=[
@@ -108,8 +109,14 @@ app.layout = html.Div(
                                         className="dropdown",
                                     ),
 
+                                    # chloropleth map
                                     dcc.Graph(
                                         id="chloropleth", config={"displayModeBar": True},
+                                    ),
+
+                                    # bar plot
+                                    dcc.Graph(
+                                        id="bar", config={"displayModeBar": True},
                                     ),
                                 ],
                                 className="card",
@@ -197,6 +204,7 @@ app.layout = html.Div(
 @app.callback(
     [
         Output("chloropleth", "figure"),
+        Output("bar", "figure")
     ],
     [
         Input(component_id="attribute-filter", component_property="value"),
@@ -206,7 +214,7 @@ app.layout = html.Div(
 def plots(attribute, gardens):
     filtered_df = filter_cache(gardens)
 
-    return [chloropleth(attribute, filtered_df)]
+    return [chloropleth(attribute, filtered_df), bar(attribute,filtered_df)]
     # this chloropleth expects list. the other doesn't
 
 
