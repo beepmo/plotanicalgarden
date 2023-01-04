@@ -39,7 +39,11 @@ genus = ['Acer',
          'Toxicodendron'
          ]
 
-header = html.Div(
+app.layout = html.Div(
+    children=[
+
+        # top section containing preamble & UBC logo
+        html.Div(
             children=[
                 # html.P(children="🥑", className="header-emoji"),
                 html.Img(src=logo_image, className="header-logo",
@@ -50,20 +54,21 @@ header = html.Div(
                 html.H1(children=' '),
                 html.P(
                     children='''Otherworldly terrain.
-                    Here are some teasers that don't give away too much.
-                    ''',
+                            Here are some teasers that don't give away too much.
+                            ''',
                     className="header-description",
                 ),
             ],
             className="header",
-        )
+        ),
 
-app.layout = html.Div(
-    children=[
-        header,
         html.Div([
             dcc.Tabs([
+
+                # tab 1: throwing numbers
                 dcc.Tab(label='Throwing numbers', children=[
+
+                    # garden selector
                     html.Div(
                         children=[
                             html.Div(
@@ -86,6 +91,8 @@ app.layout = html.Div(
                         ],
                         className="menu",
                     ),
+
+                    # wrapper contains attribute selector asw chloropleth and bar cards
                     html.Div(
                         children=[
                             html.Div(
@@ -110,6 +117,8 @@ app.layout = html.Div(
                         ],
                         className="wrapper",
                     ),
+
+                    # bottom section containing big numbers
                     html.Div(
                         children=[
                             html.P(children="🥑", className="header-emoji"),
@@ -126,6 +135,8 @@ app.layout = html.Div(
                         className="header",
                     ),
                 ]),
+
+                # tab 2: spotlight
                 dcc.Tab(label='Spotlight', children=[
                     html.Div(
                         children=[
